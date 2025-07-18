@@ -54,6 +54,25 @@
     }
   </style>
 </head>
+<script>
+const startTime = Date.now();
+const urlParams = new URLSearchParams(window.location.search);
+const pid = urlParams.get("pid");
+
+window.addEventListener("beforeunload", () => {
+  const duration = Math.round((Date.now() - startTime) / 1000);
+  fetch("https://script.google.com/macros/s/AKfycbzFkN3D8Qu7Lu7BwJZsXe2R__WJoVyBadO74l-BEtvyUE07vE9IqoCCLwPp0UAR9cXl/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      pid: pid,
+      page: window.location.pathname.replaceAll("/", ""),
+      time_spent: duration,
+      timestamp: new Date().toISOString()
+      })
+    });
+  }
+</script>
 <body>
   <div class="logo">
     <img src="healthline-logo.png" alt="Healthline Logo">
@@ -65,3 +84,7 @@
   <p>There are few things in the food world that evoke stronger opinions than spice. Do you go for the mild salsa, the medium, or the three-alarm hot version? Fortunately for people who do love spice (and not just the fiery spice from capsaicin found in chili peppers), science is in your favor. Spices like cinnamon, turmeric, garlic, ginger, and cumin, as well as chili, host many health benefits.</p>
   <p>Data across numerous studies indicates that certain spices — like cumin, cinnamon, turmeric, peppers, and chilies — can raise your metabolic resting rate and slow down your appetite. One study also found that turmeric suppressed fat tissue growth in mice.</p>
   <p>The effect is mild, so putting cinnamon on your roll probably isn’t going to aid in weight loss. But if you’ve reached a plateau in your weight loss journey, spicing it up may be just the thing to try.</p>
+  <br>
+  <p style="text-transform: uppercase; color: darkblue; margin-bottom: 30px;">
+  You may now close this tab and return to the survey  
+  </p>
