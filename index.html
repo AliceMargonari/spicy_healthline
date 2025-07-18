@@ -55,36 +55,31 @@
   </style>
 </head>
 <script>
-const startTime = Date.now();
-const urlParams = new URLSearchParams(window.location.search);
-const pid = urlParams.get("pid");
-const condition = urlParams.get("condition") || "unknown";
+  const startTime = Date.now();
+  const urlParams = new URLSearchParams(window.location.search);
+  const pid = urlParams.get("pid") || "undefined_pid";
+  const condition = urlParams.get("condition") || "unknown";
 
-window.addEventListener("beforeunload", function () {
-  const duration = Math.round((Date.now() - startTime) / 1000);
+  window.addEventListener("pagehide", function () {
+    const duration = Math.round((Date.now() - startTime) / 1000);
 
-  const payload = {
-    pid: pid,
-    condition: condition,
-    page: window.location.pathname.replaceAll("/", ""),
-    time_spent: duration,
-    timestamp: new Date().toISOString()
-  };
+    const payload = {
+      pid: pid,
+      condition: condition,
+      page: window.location.pathname.replaceAll("/", ""),
+      time_spent: duration,
+      timestamp: new Date().toISOString()
+    };
 
-  navigator.sendBeacon = navigator.sendBeacon || function(url, data) {
-    return fetch(url, {
+    fetch("https://script.google.com/macros/s/AKfycbzWGvRD4G9xwdeJnWZZev1UK1ANNya-jR82uoibCnMdqYkQ6yo9lO2fWV1dNV0i-DJO/exec", {
       method: "POST",
-      body: data,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
       keepalive: true
     });
-  };
-
-  navigator.sendBeacon(
-    "https://script.google.com/macros/s/AKfycbzWGvRD4G9xwdeJnWZZev1UK1ANNya-jR82uoibCnMdqYkQ6yo9lO2fWV1dNV0i-DJO/exec",
-    JSON.stringify(payload)
-  );
-});
+  });
 </script>
 <body>
   <div class="logo">
