@@ -63,7 +63,7 @@ const condition = urlParams.get("condition") || "unknown";  // fallback if missi
 window.addEventListener("beforeunload", () => {
   const duration = Math.round((Date.now() - startTime) / 1000);
 
-  fetch("https://script.google.com/macros/s/AKfycbwdAnl6Mxb4mhieOxZ9y7FECRdjuCH-l3rv02mQk1B1nfjjSCetppwLCh8GIc7-a0g0FQ/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzWGvRD4G9xwdeJnWZZev1UK1ANNya-jR82uoibCnMdqYkQ6yo9lO2fWV1dNV0i-DJO/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
